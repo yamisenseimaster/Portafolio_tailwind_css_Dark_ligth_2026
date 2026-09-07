@@ -10,6 +10,7 @@ import Footer from './components/sections/Footer'
 import { MotionConfig } from 'framer-motion'
 import BackgroundMusic from './components/BackgroundMusic'
 import ScrollProgress from './components/effects/ScrollProgress'
+import ScrollShowcase from './components/effects/ScrollShowcase'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <BackgroundMusic />
         <Navbar />
         <HeroSection />
+        <ScrollShowcase />
        <ProjectsSection/>
        <About/>
        <SkillsSection />

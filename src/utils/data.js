@@ -258,7 +258,7 @@ export const SOCIAL_LINKS = [
     {
         name: "Correo",
         icon: Mail,
-        url: "mailto:H6NlW@example.com",
+        url: "mailto:yamilcazon74@gmail.com",
         color:"hover:text-green-400",
         bgcolor:"hover:bg-green-500/10",
     },
@@ -267,17 +267,17 @@ export const CONTACT_INFO = [
     {
         icon: MapPin,
         label: "Ubicación",
-        value: "Buenos Aires, Argentina",
+        value: "Perico, Jujuy",
 
     },
     {
         icon: Phone,
         label: "Teléfono",
-        value: "+54 9 11 1234 5678",
+        value: "3885794672",
     },
     {
         icon: Mail,
         label: "Correo",
-        value: "H6NlW@example.com",
+        value: "yamilcazon74@gmail.com",
     },
 ]

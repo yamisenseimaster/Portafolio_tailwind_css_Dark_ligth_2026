@@ -1,0 +1,49 @@
+.scroll-showcase { --showcase-accent: #00ed9a; position: relative; padding: 0 32px; }
+html:not(.dark) .scroll-showcase { --showcase-accent: #b80e4d; }
+.showcase-sticky { position: sticky; top: 0; height: 100svh; min-height: 540px; display: flex; flex-direction: column; justify-content: center; gap: 24px; overflow: hidden; }
+.showcase-heading { display: flex; align-items: center; justify-content: space-between; width: min(100%, 1080px); margin-inline: auto; padding-top: 64px; }
+.showcase-heading a { color: var(--showcase-accent); }
+.showcase-viewport { overflow: clip; padding: 16px 0; }
+.showcase-track { display: flex; gap: 28px; width: max-content; position: relative; }
+.showcase-project { display: block; flex: 0 0 auto; width: min(520px, calc(100vw - 80px)); border-top: 1px solid var(--showcase-accent); padding-top: 12px; }
+.showcase-image { position: relative; overflow: hidden; aspect-ratio: 16 / 9; max-height: 42svh; background: color-mix(in srgb, currentColor 5%, transparent); }
+.showcase-image img { height: 100%; width: 100%; object-fit: contain; }
+.showcase-scan { position: absolute; inset: 0; border-top: 2px solid var(--showcase-accent); background: linear-gradient(transparent 90%, color-mix(in srgb, var(--showcase-accent) 12%, transparent)); transform: translateY(-105%); pointer-events: none; }
+.showcase-project:hover .showcase-scan, .showcase-project:focus-visible .showcase-scan { animation: showcase-scan 1.4s ease-in-out; }
+.showcase-caption { display: grid; grid-template-columns: 26px minmax(0, 1fr) 20px; align-items: center; gap: 12px; margin-top: 16px; }
+.showcase-caption h3 { font-size: 19px; line-height: 1.4; overflow-wrap: anywhere; }
+.showcase-caption svg { color: var(--showcase-accent); }
+.showcase-project p { font: 11px/1.7 monospace; opacity: .65; margin: 8px 0 0 38px; }
+.showcase-meter { height: 2px; background: color-mix(in srgb, currentColor 12%, transparent); }
+.showcase-meter > div { height: 100%; transform-origin: left; background: var(--showcase-accent); }
+.showcase-ticker { overflow: hidden; border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent); padding-bottom: 18px; }
+.showcase-ticker > div { width: max-content; font: 18px/1.6 monospace; color: var(--showcase-accent); opacity: .55; }
+.showcase-project:focus-visible, .showcase-heading a:focus-visible { outline: 2px solid var(--showcase-accent); outline-offset: -2px; }
+.showcase-static .showcase-sticky { position: relative; height: auto; min-height: 0; padding-block: 32px; }
+.showcase-static .showcase-viewport { overflow-x: auto; }
+.work-entry { scroll-margin-top: 110px; }
+.service-row { position: relative; }
+.service-row::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 1px; background: #00ed9a; transform: scaleX(0); transform-origin: left; transition: transform .65s cubic-bezier(.22,1,.36,1); }
+html:not(.dark) .service-row::after { background: #b80e4d; }
+.service-row:hover::after { transform: scaleX(1); }
+.heading-rule { position: relative; overflow: hidden; }
+.heading-rule::after { content: ''; position: absolute; inset: 0; background: currentColor; transform: translateX(-100%); }
+.animated-heading:hover .heading-rule::after { animation: showcase-scan-x 1.2s ease; }
+@keyframes showcase-scan { to { transform: translateY(105%); } }
+@keyframes showcase-scan-x { to { transform: translateX(100%); } }
+@media (max-width: 700px) {
+  .scroll-showcase { padding-inline: 24px; }
+  .showcase-sticky { gap: 18px; }
+  .showcase-track { gap: 20px; }
+  .showcase-caption h3 { font-size: 17px; }
+}
+@media (max-height: 540px) {
+  .showcase-sticky { min-height: 0; gap: 10px; }
+  .showcase-heading { padding-top: 70px; }
+  .showcase-image { max-height: 27svh; }
+  .showcase-ticker { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase-scan, .heading-rule::after { display: none; }
+  .service-row::after { transition: none; }
+}

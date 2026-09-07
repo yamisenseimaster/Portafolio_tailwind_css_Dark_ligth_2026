@@ -21,6 +21,7 @@ const ContactSection = () => {
     });
     const [showSuccess, setShowSuccess] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState("");
 
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, {once: true, margin: '-100px'});
@@ -35,17 +36,46 @@ const ContactSection = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simula el envio del formulario
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        setSubmitError("");
 
-        setIsSubmitting(false);
-        setShowSuccess(true);
-        setFormData({ name: "", email: "", message: "" });
+        const emailBody = [
+            `Nombre: ${formData.name}`,
+            `Correo: ${formData.email}`,
+            "",
+            formData.message,
+        ].join("\n");
 
-        // Oculta automaticamente el modal despues de 3 segundos
-        setTimeout(() => {setShowSuccess(false)}, 3000);
+        try {
+            const response = await fetch("https://formsubmit.co/ajax/yamilcazon74@gmail.com", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    _subject: `Nuevo mensaje del portafolio de ${formData.name}`,
+                    _template: "table",
+                    _captcha: "false",
+                }),
+            });
 
+            if (!response.ok) {
+                throw new Error("No se pudo enviar el mensaje.");
+            }
 
+            setShowSuccess(true);
+            setFormData({ name: "", email: "", message: "" });
+            setTimeout(() => {setShowSuccess(false)}, 3000);
+        } catch {
+            const mailto = `mailto:yamilcazon74@gmail.com?subject=${encodeURIComponent("Nuevo mensaje desde el portafolio")}&body=${encodeURIComponent(emailBody)}`;
+            window.location.href = mailto;
+            setSubmitError("Si no se abrió tu app de correo, escribime directo a yamilcazon74@gmail.com.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
     return <section
         id="contact"
@@ -85,7 +115,7 @@ const ContactSection = () => {
                 className="cyber-card cyber-card-hover record-card p-8"
             >
                 <h3 className="text-2xl font-medium mb-8">Enviar mensaje</h3>
-                <div className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid md:grid-cols-2 gap-6">
                         <TextInput
                             isDarkMode={isDarkMode}
@@ -93,7 +123,9 @@ const ContactSection = () => {
                             handleInputChange={(text) =>
                                 handleInputChange("name", text)
                             }
-                            label="Nombre "
+                            label="Nombre"
+                            name="name"
+                            required
                         />
                         <TextInput
                             isDarkMode={isDarkMode}
@@ -102,6 +134,9 @@ const ContactSection = () => {
                             handleInputChange={(text) =>
                                 handleInputChange("email", text)
                             }
+                            type="email"
+                            name="email"
+                            required
                         />
                     </div>
 
@@ -113,13 +148,20 @@ const ContactSection = () => {
                         handleInputChange={(text) =>
                             handleInputChange("message", text)
                         }
+                        name="message"
+                        required
                     />
+                    {submitError && (
+                        <p className={`text-sm ${isDarkMode ? "text-[#00ed9a]" : "text-[#b80e4d]"}`}>
+                            {submitError}
+                        </p>
+                    )}
                     <motion.button
+                        type="submit"
                         disabled={isSubmitting}
                         whileHover={{y:-2, scale: 1.02}}
                         whileTap={{scale:0.98}}
                         className="cyber-cta w-full disabled:opacity-60 text-sm py-4 rounded-lg uppercase tracking-wider font-medium transition-all duration-300 flex items-center justify-center space-x-2"
-                        onClick={handleSubmit}
                     >
                         {isSubmitting ? (
                             <>
@@ -136,10 +178,10 @@ const ContactSection = () => {
                                 <span>Enviar</span>
                             </>
                         )}
-                       
+                        
 
                     </motion.button>
-                </div>
+                </form>
             </motion.div>
 
         </motion.div>
