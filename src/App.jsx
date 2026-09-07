@@ -7,19 +7,26 @@ import ProjectsSection from './components/sections/ProjectsSection'
 import About from './components/sections/About'
 import ContactSection from './components/sections/ContactSection'
 import Footer from './components/sections/Footer'
+import { MotionConfig } from 'framer-motion'
+import BackgroundMusic from './components/BackgroundMusic'
+import ScrollProgress from './components/effects/ScrollProgress'
 
 const App = () => {
   return (
     <ThemeProvider>
+      <MotionConfig reducedMotion="user">
       <div >
+        <ScrollProgress />
+        <BackgroundMusic />
         <Navbar />
         <HeroSection />
-       <SkillsSection />
        <ProjectsSection/>
        <About/>
+       <SkillsSection />
        <ContactSection/>
        <Footer/>
     </div>     
+      </MotionConfig>
     </ThemeProvider>
     
   )

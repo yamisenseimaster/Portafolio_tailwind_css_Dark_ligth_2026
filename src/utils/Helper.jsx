@@ -3,19 +3,20 @@ export  const containerVariants = {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.12,
+        delayChildren: 0.12,
       },
     },
   };
   export const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 26, opacity: 0, filter: 'blur(8px)' },
     visible: {
       y: 0,
       opacity: 1,
+      filter: 'blur(0px)',
       transition: {
-        duration: 0.8,
-        ease: 'easeOut',
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
       },
     }
   };

@@ -26,7 +26,7 @@ import PROJECT_IMG_6 from "../assets/imgens/proyecto6.jpg";
 import PROJECT_IMG_7 from "../assets/imgens/proyecto7.jpg";
 export const SKILLS_CATEGORY = [
     {
-        title: "Frontend Development",
+        title: "Desarrollo Frontend",
         icons: Code2,
         description: "Creación de sitios web modernos y responsivos utilizando tecnologías como React, HTML, CSS y JavaScript.",
         skills: [
@@ -38,7 +38,7 @@ export const SKILLS_CATEGORY = [
         ],
     },
     {
-        title: "Backend Development",
+        title: "Desarrollo Backend",
         icons: Server,
         description: "Desarrollo de APIs y servicios backend utilizando Node.js, Express y bases de datos como MongoDB.",
         skills: [
@@ -50,7 +50,7 @@ export const SKILLS_CATEGORY = [
         ],
     },
     {
-        title: "Database Management",
+        title: "Gestión de Bases de Datos",
         icons: Database,
         description: "Diseño y gestión de bases de datos relacionales y no relacionales para garantizar un almacenamiento eficiente de datos.",
         skills: [
@@ -107,18 +107,18 @@ export const PROJECTS = [
         tags: ["React", "Tailwind", "MongoDB"],
         liveUrl: "https://ecommerce-react.vercel.app/",
         githubUrl: "#",
-        Featured: false,
+        featured: false,
         category: "Full Stack",
     },
     {
         id: 2,
         title: "Portafolio Personal",
-        description: "Desarrollo de mi propio portafolio utilizando React, con funcionalidades de carrito de compras, integración de pasarelas de pago y diseño responsivo.",
+        description: "Desarrollo de mi propio portafolio utilizando React, con secciones interactivas, animaciones, diseño responsivo y una presentación clara de proyectos y habilidades.",
         image: PROJECT_IMG_2,
         tags: ["React", "Tailwind", "MongoDB"],
         liveUrl: "https://yamilcazon.vercel.app/",
         githubUrl: "#",
-        Featured: true,
+        featured: true,
         category: "Full Stack",
     },
     {
@@ -129,18 +129,18 @@ export const PROJECTS = [
         tags: ["Next.js", "Tailwind", "MongoDB"],
         liveUrl: "https://blog-nextjs.vercel.app/",
         githubUrl: "#",
-        Featured: false,
+        featured: false,
         category: "Frontend",
     },
     {
         id: 4,
-        title: "Dashboard de Analíticas",
-        description: "Desarrollo de un dashboard de analíticas utilizando React y Chart.js, con funcionalidades de visualización de datos en tiempo real y diseño responsivo.",
+        title: "Panel de Analíticas",
+        description: "Desarrollo de un panel de analíticas utilizando React y Chart.js, con visualización de datos en tiempo real y diseño responsivo.",
         image: PROJECT_IMG_4,
         tags: ["React", "Tailwind", "MongoDB"],
         liveUrl: "https://dashboard-analiticas.vercel.app/",
         githubUrl: "#",
-        Featured: false,
+        featured: false,
         category: "Frontend",
     },
     {
@@ -151,7 +151,7 @@ export const PROJECTS = [
         tags: ["Node.js", "Express", "MongoDB"],
         liveUrl: "https://api-restful-nodejs.vercel.app/",
         githubUrl: "#",
-        Featured: false,
+        featured: false,
         category: "Backend",
     },
     {
@@ -162,7 +162,7 @@ export const PROJECTS = [
         tags: ["React", "Socket.io", "MongoDB"],
         liveUrl: "https://chat-tiempo-real.vercel.app/",
         githubUrl: "#",
-        Featured: false,
+        featured: false,
         category: "Full Stack",
     },
 ];
@@ -195,7 +195,7 @@ export  const JOURNEY_STEPS = [
         year: "2021",
         title: "Primer Proyecto Profesional",
         company: "Desarrollo Web",
-        description: "Desarrolle un sitio web profesional utilizando React, Next.js, Tailwind CSS y MongoDB, lo que me permitió crear un sitio web funcional y elegante.",
+        description: "Desarrollé un sitio web profesional utilizando React, Next.js, Tailwind CSS y MongoDB, lo que me permitió crear una experiencia funcional y elegante.",
         icon: Rocket,
         color: "bg-orange-500",
     },     
@@ -256,7 +256,7 @@ export const SOCIAL_LINKS = [
         bgcolor:"hover:bg-sky-500/10",
     },
     {
-        name: "Email",
+        name: "Correo",
         icon: Mail,
         url: "mailto:H6NlW@example.com",
         color:"hover:text-green-400",

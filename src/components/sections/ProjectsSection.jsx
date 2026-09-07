@@ -1,96 +1,19 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-
-import {
-    Code2,
-    ArrowUpRight,
-    Globe,
-    Zap,
-    Users
-} from "lucide-react";
-
-import { useTheme } from '../../context/ThemeContext';
-import { PROJECTS } from '../../utils/data';
-import ProjectCard from "../ProjectCard";
-import { containerVariants, itemVariants } from '../../utils/Helper';
-
-
-const ProjectsSection = () => {
-    const {isDarkMode} = useTheme();
-    const sectionRef = useRef(null);
-    const isInView = useInView(sectionRef, {once: true, margin: '-100px'});
-  return <section
-                id='work'
-                ref={sectionRef}
-                className={`py-24 px-6 ${
-                    isDarkMode ? 'bg-gray-950 text-white' : 'bg-gray-50 text-gray-900'
-                } relative overflow-hidden`}
-            >
-                {/* Background Elements */}
-                <div className='absolute inset-0 overflow-hidden'>
-                     <div
-                        className={`absolute top-20 left-1/4 w-94 h-94 rounded-full blur-3xl opacity-5 ${
-                                isDarkMode ? 'bg-blue-500' : 'bg-blue-400'
-                            }`}
-                        />
-                    <div
-                        className={`absolute bottom-20 left-1/4 w-80 h-80 rounded-full blur-3xl opacity-5 ${
-                                isDarkMode ? 'bg-purple-500' : 'bg-purple-400'
-                            }`}
-                        />
-
-                </div>
-                <div className='max-w-7xl mx-auto relative z-10'>
-                        {/*Section header*/}
-                        <motion.div
-                            initial="hidden"
-                            animate={isInView ? "visible" : "hidden"}
-                            variants={containerVariants}
-                            className='text-center mb-20'
-                        >
-                            <motion.div
-                                variants={itemVariants}
-                                className={`text-sm uppercase tracking-widest ${
-                                    isDarkMode ? 'text-gray-500' : 'text-gray-600'
-                                } mb-4`}
-                            >
-                                featured Work
-                            </motion.div>
-                            <motion.h2
-                                variants={itemVariants}
-                                className='text-3xl md:text-5xl font-light mb-6'
-                            >
-                                Recent 
-
-                                <span className='text-blue-500 font-medium'> Projects</span>
-                            </motion.h2>
-                            <motion.p
-                                variants={itemVariants}
-                                className={`text-lg ${
-                                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                                } max-w-2xl mx-auto font-light`}
-                            >
-                                A collection of projects that I've worked on, showcasing my skills and experience in web development.
-                            </motion.p>
-                        </motion.div>
-                        {/** Project Grid 1:03:07*/}
-                        <motion.div
-                            initial="hidden"
-                            animate={isInView ? "visible" : "hidden"}
-                            variants={containerVariants}
-                            className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'
-                        >
-                            {PROJECTS.map((project, index) => (
-                                <ProjectCard key={project.id} project={project} index={index} isDarkMode={isDarkMode} />
-                            ))}
-
-                        </motion.div>
-
-                </div>
-
-
-
-  </section>
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
+import { PROJECTS } from '../../utils/data'
+import { itemVariants } from '../../utils/Helper'
+import SectionHeading from '../effects/SectionHeading'
+import ProjectImage from '../effects/ProjectImage'
+export default function ProjectsSection() {
+  return <section id="work" className="cyber-section editorial-section"><div className="record-shell">
+    <SectionHeading index="01 / Proyectos" title="Registros de trabajo">Una selección de aplicaciones, interfaces y servicios que construí.</SectionHeading>
+    {PROJECTS.map((project, index) => <motion.article key={project.id} className="work-entry" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={itemVariants}>
+      <header className="work-entry-heading"><div><span className="record-index">Registro / {String(index + 1).padStart(2, '0')}</span><h3>{project.title}</h3></div><span className="editorial-stamp">{project.category}</span></header>
+      <div className={`work-entry-body ${index % 2 ? 'work-entry-reverse' : ''}`}>
+        <ProjectImage project={project} index={index} />
+        <div className="work-entry-details"><p>{project.description}</p><dl><div><dt>Especialidad</dt><dd>{project.category}</dd></div><div><dt>Tecnologías</dt><dd>{project.tags.join(' · ')}</dd></div></dl><a className="editorial-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Ver proyecto <ArrowUpRight size={16} /></a></div>
+      </div>
+    </motion.article>)}
+  </div></section>
 }
-
-export default ProjectsSection

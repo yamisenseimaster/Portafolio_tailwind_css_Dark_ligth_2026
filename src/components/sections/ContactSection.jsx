@@ -3,8 +3,6 @@ import SuccessModal from "../SuccessModal"
 import{
     // eslint-disable-next-line no-unused-vars
     motion,
-    useScroll,
-    useTransform,
     useInView
 
 } from "framer-motion"
@@ -27,12 +25,6 @@ const ContactSection = () => {
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, {once: true, margin: '-100px'});
 
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"]
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
     const handleInputChange = (key, value) => {
         setFormData({
             ...formData,
@@ -43,14 +35,14 @@ const ContactSection = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate API call
+        // Simula el envio del formulario
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         setIsSubmitting(false);
         setShowSuccess(true);
         setFormData({ name: "", email: "", message: "" });
 
-        // Auto hide success modal after 3 seconds
+        // Oculta automaticamente el modal despues de 3 segundos
         setTimeout(() => {setShowSuccess(false)}, 3000);
 
 
@@ -58,63 +50,24 @@ const ContactSection = () => {
     return <section
         id="contact"
         ref={sectionRef}
-        className={`py-24 px-6 ${
-                isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-        } relative overflow-hidden`}
+        className="cyber-section editorial-section overflow-hidden"
     >
-    {/** Background Elements */}
-    <motion.div
-        style={{y}} className="absolute inset-0 overflow-hidden"
-    >
-        <div
-            className={`absolute top-20 left-1/4 w-72 h-72 rounded-full blur-3xl opacity-5 ${
-                isDarkMode ? "bg-blue-500" : "bg-blue-400"
-            }`}
-        />
-
-        <div
-            className={`absolute bottom-40  right-1/4 w-80 h-80 rounded-full blur-3xl opacity-5 ${
-                isDarkMode ? "bg-purple-500" : "bg-purple-400"
-            }`}
-        />
-
-    </motion.div>
-        
-    <div className="max-w-6xl mx-auto relative z-10" >
+    <div className="record-shell relative z-10" >
         {/*Section Header*/}
         <motion.div
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={containerVariants}
-            className="text-center mb-20"
+            className="record-header"
         >
-            <motion.div
-                variants={itemVariants}
-                className={`text-sm uppercase tracking-widest ${
-                    isDarkMode ? "text-gray-500" : "text-gray-600"
-                }mb-4`}
-            >
-                Let s Connect
+            <motion.div variants={itemVariants}>
+                <div className="record-index">04 / Contacto</div>
+                <div className="record-rule" />
+                <p className="record-summary">¿Listo para empezar tu próximo proyecto? Contame la idea y armamos el siguiente paso.</p>
             </motion.div>
-
-            <motion.h2
-                variants={itemVariants}
-                className="text-3xl md:text-5xl font-light mb-6"
-            >
-                Get In
-                <span className="text-blue-500 font-medium">Touch</span>
-
+            <motion.h2 variants={itemVariants} className="record-title">
+                Correspondencia
             </motion.h2>
-            <motion.p
-                variants={itemVariants}
-                className={`text-xl max-w.2xl mx-auto ${
-                    isDarkMode ? "text-gray-400" : "text-gray-600"
-                }`}
-            >
-                Ready to start your next project? Lets discuss how can bring
-                your ideas to life.
-                
-            </motion.p>
 
         </motion.div>
     
@@ -128,11 +81,8 @@ const ContactSection = () => {
         >
             <motion.div
                 variants={itemVariants}
-                className={` p-8 rounded-2xl border ${
-                    isDarkMode 
-                    ? "bg-gray-800/50 border-gray-700 backdrop-blur-sm" 
-                    : "bg-gray-50/50 border-gray-200 backdrop-blur-sm"
-                }`}
+                whileHover={{ y: -5 }}
+                className="cyber-card cyber-card-hover record-card p-8"
             >
                 <h3 className="text-2xl font-medium mb-8">Enviar mensaje</h3>
                 <div className="space-y-6">
@@ -147,7 +97,7 @@ const ContactSection = () => {
                         />
                         <TextInput
                             isDarkMode={isDarkMode}
-                            label="Email"
+                            label="Correo"
                             value={formData.email}
                             handleInputChange={(text) =>
                                 handleInputChange("email", text)
@@ -168,13 +118,13 @@ const ContactSection = () => {
                         disabled={isSubmitting}
                         whileHover={{y:-2, scale: 1.02}}
                         whileTap={{scale:0.98}}
-                        className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white text-sm py-4 rounded-xl uppercase tracking-wider font-medium transition-all duration-300 flex items-center justify-center space-x-2"
+                        className="cyber-cta w-full disabled:opacity-60 text-sm py-4 rounded-lg uppercase tracking-wider font-medium transition-all duration-300 flex items-center justify-center space-x-2"
                         onClick={handleSubmit}
                     >
                         {isSubmitting ? (
                             <>
                                 <motion.div
-                                    animated={{rotate:360}}
+                                    animate={{rotate:360}}
                                     transition={{duration:1, repeat: Infinity, ease: "linear"}}
                                     className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
                                 />
@@ -203,7 +153,7 @@ const ContactSection = () => {
         >
             {/* Contact Info */}
             <motion.div variants={itemVariants}>
-                    <h3 className="text-2xl font-medium mb-6"> Contact Info</h3>
+                    <h3 className="text-2xl font-medium mb-6">Información de contacto</h3>
                     <div className="space-y-4">
                         
                         {CONTACT_INFO.map((info) => (
@@ -211,16 +161,10 @@ const ContactSection = () => {
                                 key={info.label}
                                 variants={itemVariants}
                                 whileHover={{ x: 4}}
-                                className={`flex items-center space-x-4 p-4 rounded-xl ${
-                                    isDarkMode 
-                                    ? "bg-gray-800/30  hover:bg-gray-800/50" 
-                                    : "hover:bg-gray-100/50 bg-gray-50/30"
-                                } transition-all duration-300`}
+                                className="cyber-card cyber-card-hover record-card flex items-center space-x-4 p-4 transition-all duration-300"
                             >
-                                <div className={`p-3 rounded-lg ${
-                                    isDarkMode ? "bg-gray-700" : "bg-white"
-                                }`}>
-                                    <info.icon size={20} className="text-blue-500"/>
+                                <div className="cyber-icon p-3 rounded-lg">
+                                    <info.icon size={20}/>
                                 </div>
                                 <div>
                                     <div
@@ -239,7 +183,7 @@ const ContactSection = () => {
             </motion.div>
             {/*Social Links*/}
             <motion.div variants={itemVariants}>
-                    <h3 className="text-xl font-medium mb-6">Follow Me</h3>
+                    <h3 className="text-xl font-medium mb-6">Seguime</h3>
                     <div className="grid grid-cols-2 gap-4">
                         {SOCIAL_LINKS.map((social) => (
                             <motion.a
@@ -248,11 +192,7 @@ const ContactSection = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{scale: 1.05, y:-2}}
-                                className={`flex items-center space-x-3 p-4 rounded-xl border transition-all duration-300 ${
-                                    isDarkMode 
-                                    ? "bg-gray-800/30  border-gray-700 hover:border-gray-600" 
-                                    : "bg-white/80 border-gray-200 hover:border-gray-300"
-                                } ${social.bgcolor} ${social.color}`}
+                                className={`cyber-card cyber-card-hover record-card flex items-center space-x-3 p-4 transition-all duration-300 ${social.color}`}
                             >
                                  <social.icon size={20}/>
                                 <span className="font-medium">{social.name}</span>
@@ -263,7 +203,7 @@ const ContactSection = () => {
             {/* Availability Status*/}
             <motion.div
                 variants={itemVariants}
-                className={`p-6 rounded-xl border ${
+                className={`p-6 rounded-lg border ${
                     isDarkMode 
                     ? "bg-green-500/10 border-green-500/30" 
                     : "bg-green-50 border-green-200"
@@ -272,7 +212,7 @@ const ContactSection = () => {
                 <div className="flex items-center space-x-3 mb-2">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse "/>
                         <span className="font-medium text-green-500">
-                            Available for work
+                            Disponible para trabajar
                         </span>
                 </div>
                     <p
@@ -280,7 +220,7 @@ const ContactSection = () => {
                             isDarkMode ? "text-gray-400" : "text-gray-600"
                         }`}
                     >
-                        I m currently open to new opportunities and collaborations. If you have a project in mind or just want to say hi, feel free to reach out!
+                        Actualmente estoy abierto a nuevas oportunidades y colaboraciones. Si tenés un proyecto en mente o simplemente querés saludar, escribime.
                     </p>
                
         </motion.div>
@@ -295,30 +235,22 @@ const ContactSection = () => {
         >
             <motion.div
                 variants={itemVariants}
-                className={` max-w-2xl mx-auto p-8 rounded-2xl border ${
-                    isDarkMode
-                    ? "bg-gray-800/30 border-gray-700"
-                    : "bg-gray-50/50 border-gray-200"
-                }`}
+                className="cyber-card cyber-card-hover record-card max-w-2xl mx-auto p-8"
             >
-                <h3 className="text-xl font-medium mb-4">Prefer a quick call?</h3>
+                <h3 className="text-xl font-medium mb-4">¿Preferís una llamada rápida?</h3>
                 <p
                     className={`${
                         isDarkMode ? "text-gray-400" : "text-gray-600"
                     }mb-6`}
                 >
-                    Sometimes a quick chat can be more effective than emails. If you prefer to discuss your project over a call, let me know and we can schedule a time that works for you.
+                    A veces una charla breve es más efectiva que varios correos. Si preferís hablar de tu proyecto por llamada, coordinamos un horario que te quede cómodo.
                 </p>
                 <motion.button
                     whileHover={{y:-2, scale: 1.05}}
                     whileTap={{scale:0.98}}
-                    className={`px-6 py-3 rounded-full border font-medium transition-all duration-300 ${
-                        isDarkMode
-                        ? "border-gray-600 hover:border-blue-500   hover:text-blue-400"
-                        : "border-gray-300 hover:border-blue-500   hover:text-blue-600"
-                    }`}
+                    className="cyber-outline px-6 py-3 rounded-full font-medium transition-all duration-300"
                 >
-                    Schedule a Call
+                    Agendar llamada
                 </motion.button>
 
 
@@ -331,9 +263,8 @@ const ContactSection = () => {
                 <SuccessModal 
                     showSuccess={showSuccess} 
                     setShowSuccess={setShowSuccess} 
-                    isDarkMode={isDarkMode} 
                 />
-    </div>s
+    </div>
   </section>
 }
 

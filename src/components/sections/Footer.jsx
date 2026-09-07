@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/static-components */
 import {useRef} from 'react'
-import { motion, scale, useInView, useScroll, useTransform } from 'framer-motion'
+import {
+    motion,
+    useInView,
+} from 'framer-motion'
 import { useTheme } from '../../context/ThemeContext'
 import {
     Mail,
@@ -16,9 +19,6 @@ const Footer = () => {
     const { isDarkMode } = useTheme();
     const footerRef = useRef(null);
     const isInView = useInView(footerRef, { once: true, margin: '-50px' });
-
-    const { scrollYProgress } = useScroll();
-    const scrollY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
     const socialLinks = [
         {
@@ -40,7 +40,7 @@ const Footer = () => {
             color:"hover:text-sky-400"
         },
         {
-            name: 'Email',
+            name: 'Correo',
             icon: Mail,
             url: "mailto:H6NlW@example.com",
             color:"hover:text-green-400"
@@ -55,8 +55,8 @@ const Footer = () => {
             <motion.div
                 className={`h-px bg-gradient-to-r ${
                     isDarkMode
-                        ? 'from-transparent via-blue-500 to-transparent'
-                        : 'from-transparent via-blue-600 to-transparent'
+                        ? 'from-transparent via-[#00ed9a] to-transparent'
+                        : 'from-transparent via-[#b80e4d] to-transparent'
                 }`}
                 initial={{ width: "0%", opacity: 0 }}
                 animate={isInView ? { width: "100%", opacity: 1 } :{}}
@@ -66,8 +66,8 @@ const Footer = () => {
             <motion.div
                 className={`absolute top-0 h-px bg-gradient-to-r ${
                     isDarkMode
-                        ? 'from-blue-400 via-purple-500 to-blue-400'
-                        : 'from-blue-500 via-purple-600 to-blue-500'
+                        ? 'from-[#00ed9a] via-[#ea2478] to-[#00ed9a]'
+                        : 'from-[#b80e4d] via-[#00dc9d] to-[#b80e4d]'
                 } blur-sm`}
                 
                 animate={{
@@ -89,24 +89,11 @@ const Footer = () => {
     return (
         <footer
                 ref={footerRef}
-                className={`relative ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} overflow-hidden`}
+                className="cyber-section overflow-hidden"
         >
         {/*Animated Wave/Gradiant Line*/}
         <AnimatedGradientLine />
         
-        {/*Background Elements*/}
-        <motion.div
-            style={{y:scrollY}}
-            className='absolute inset-0 pointer-events-none overflow-hidden '
-        >
-            <div className={`absolute bottom-10 left-1/4 w-64 h-64 rounded-full blur-3xl opacity-30 ${
-                isDarkMode
-                    ? 'bg-blue-500'
-                    : 'bg-blue-400'
-            }`}/>
-            <div className={`absolute top-10 right-1/3 w-48 h-48 rounded-full blur-3xl opacity-30 ${
-                isDarkMode ? 'bg-purple-500' : 'bg-purple-400' }`}/>
-        </motion.div>
         <div className='relative z-10 px-6 py-16'>
                 <div className='max-w-6xl mx-auto'>
                     {/*Main footer Content*/}
@@ -126,7 +113,7 @@ const Footer = () => {
                                 <motion.div
                                     animates={{rotate: 360}}
                                     transition={{repeat: Infinity, duration: 20, ease: "linear"}}
-                                    className='text-blue-500'
+                                    className='cyber-accent-text'
                                 >
                                     <Code2 size={28}/>
                                 </motion.div>
@@ -136,7 +123,7 @@ const Footer = () => {
                                 variants={itemVariants}
                                 className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} max-w-md mx-auto `}
                             >
-                                Crafting digital experiences with passion and precision. © 2024 Yamil Cazon. All rights reserved.
+                                Creando experiencias digitales con pasión y precisión. © 2024 Yamil Cazon. Todos los derechos reservados.
                             </motion.p>
                         </motion.div>
 
@@ -150,8 +137,8 @@ const Footer = () => {
                                     rel="noopener noreferrer"
                                     className={`p-3 rounded-full transition-colors duration-300${
                                         isDarkMode 
-                                        ? 'bg-gray-800/50 hover:bg-gray-700/50' 
-                                        : 'bg-gray-100/50 hover:bg-gray-200/50'
+                                        ? 'bg-[#0d1b1d]/70 hover:bg-[#0d1b1d]/90' 
+                                        : 'bg-white/55 hover:bg-white/80'
                                     } ${social.color} backdrop-blur-sm`}
                                     whileHover={{ scale: 1.2, y:-2, rotate: [0, -5, 5, 0]}}
                                     whileTap={{scale:0.95}}
@@ -170,7 +157,7 @@ const Footer = () => {
                             variants={itemVariants}
                             className="flex items-center justify-center space-x-4"
                         >
-                            <div className={`h-px w-16 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-300'}`}/>
+                            <div className={`h-px w-16 ${isDarkMode ? 'bg-[#00ed9a]/25' : 'bg-[#b80e4d]/20'}`}/>
                             <motion.div
                                 animate={{scale: [1, 1.2, 1]}}
                                 transition={{duration: 2, repeat: Infinity}}
@@ -178,17 +165,17 @@ const Footer = () => {
                             >
                                 <Heart size={16} fill="currentColor"/>
                             </motion.div>
-                            <div className={`h-px w-16 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-300' }`}/>
+                            <div className={`h-px w-16 ${isDarkMode ? 'bg-[#00ed9a]/25' : 'bg-[#b80e4d]/20' }`}/>
                         </motion.div>
                         {/*Copyright*/}
                         <motion.div variants={itemVariants} className="space-y-2">
                             <p className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
 
                             }`}>
-                                © {new Date().getFullYear()} Yamil Cazon. All rights reserved.
+                                © {new Date().getFullYear()} Yamil Cazon. Todos los derechos reservados.
                             </p>
                             <p className={`text-sm ${isDarkMode ? 'text-gray-600' : 'text-gray-500' } `}>
-                                Designed & Built with <Heart size={14} fill="currentColor" className='inline-block mx-1'/> by Yamil Cazon
+                                Diseñado y desarrollado con <Heart size={14} fill="currentColor" className='inline-block mx-1'/> por Yamil Cazon
                             </p>
                         </motion.div>
                         {/*Back to Top Button*/}
@@ -197,14 +184,14 @@ const Footer = () => {
                                 onClick={scrollToTop}
                                 className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300  ${
                                     isDarkMode 
-                                    ? 'bg-gray-800/50 hover:bg-gray-700/50 text-gray-400 hover:text-white' 
-                                    : 'bg-gray-100/50 hover:bg-gray-200/50 text-gray-600 hover:text-gray-900'
-                                } backdrop-blur-sm border ${isDarkMode ? 'border-gray-700' : 'border-gray-300'}`}
+                                    ? 'bg-[#0d1b1d]/65 hover:bg-[#0d1b1d]/85 text-gray-400 hover:text-[#00ed9a]' 
+                                    : 'bg-white/55 hover:bg-white/80 text-gray-600 hover:text-[#b80e4d]'
+                                } backdrop-blur-sm border ${isDarkMode ? 'border-[#00ed9a]/20' : 'border-[#b80e4d]/18'}`}
                                 whileHover={{ scale: 1.05, y:-2, boxShadow: isDarkMode ? '0px 10px 25px rgba(59, 30, 246, 0.15)' : '0px 10px 25px rgba(59, 130, 246, 0.1)' }}
                                 whileTap={{ scale: 0.95 }}                                 
                             >
                                 <ArrowUp size={16}/>
-                                <span>Back to Top</span>
+                                <span>Volver arriba</span>
                             </motion.button>
                         </motion.div>
 
