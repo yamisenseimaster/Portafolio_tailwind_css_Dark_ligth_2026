@@ -16,6 +16,77 @@ body {
 
 .page-progress { position: fixed; inset: 0 0 auto; height: 2px; background: #b80e4d; transform-origin: left; z-index: 100; pointer-events: none; }
 html.dark .page-progress { background: #00ed9a; }
+.grid-light-rain {
+  --beam-color: 184, 14, 77;
+  --beam-soft: rgba(184, 14, 77, .08);
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: .62;
+  mix-blend-mode: multiply;
+}
+html.dark .grid-light-rain {
+  --beam-color: 0, 237, 154;
+  --beam-soft: rgba(0, 237, 154, .1);
+  opacity: .78;
+  mix-blend-mode: screen;
+}
+.grid-light-rain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 95px, var(--beam-soft) 95px 96px),
+    repeating-linear-gradient(90deg, transparent 0 15px, rgba(var(--beam-color), .035) 15px 16px);
+  opacity: .42;
+}
+.grid-light-rain span {
+  position: absolute;
+  left: var(--beam-left);
+  top: calc(var(--beam-height) * -1);
+  width: 2px;
+  height: var(--beam-height);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(var(--beam-color), 0) 0%,
+      rgba(var(--beam-color), .14) 18%,
+      rgba(var(--beam-color), .88) 56%,
+      rgba(255, 255, 255, .82) 62%,
+      rgba(var(--beam-color), .2) 78%,
+      rgba(var(--beam-color), 0) 100%
+    );
+  border-radius: 999px;
+  box-shadow:
+    0 0 18px rgba(var(--beam-color), .42),
+    0 0 42px rgba(var(--beam-color), .18);
+  transform: translateY(-120%);
+  animation: grid-light-fall var(--beam-duration) cubic-bezier(.38, 0, .18, 1) infinite;
+  animation-delay: var(--beam-delay);
+}
+.grid-light-rain span::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  bottom: 18%;
+  width: 10px;
+  height: 10px;
+  background: rgba(var(--beam-color), .72);
+  filter: blur(4px);
+}
+@keyframes grid-light-fall {
+  0% { transform: translateY(-130%); opacity: 0; }
+  8% { opacity: .05; }
+  18% { opacity: .9; }
+  76% { opacity: .74; }
+  100% { transform: translateY(calc(100vh + 160%)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grid-light-rain span { animation: none; opacity: 0; }
+  .grid-light-rain::before { opacity: .2; }
+}
 .editorial-heading.animated-heading { position: relative; border-top: 0; }
 .heading-rule { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: currentColor; transform-origin: left; }
 .heading-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-right: .22em; }

@@ -11,12 +11,14 @@ import { MotionConfig } from 'framer-motion'
 import BackgroundMusic from './components/BackgroundMusic'
 import ScrollProgress from './components/effects/ScrollProgress'
 import ScrollShowcase from './components/effects/ScrollShowcase'
+import GridLightRain from './components/effects/GridLightRain'
 
 const App = () => {
   return (
     <ThemeProvider>
       <MotionConfig reducedMotion="user">
       <div >
+        <GridLightRain />
         <ScrollProgress />
         <BackgroundMusic />
         <Navbar />
