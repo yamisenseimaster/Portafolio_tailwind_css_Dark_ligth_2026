@@ -21,9 +21,9 @@ import PROJECT_IMG_1 from "../assets/imgens/proyecto1.png";
 import PROJECT_IMG_2 from "../assets/imgens/proyecto2.png";
 import PROJECT_IMG_3 from "../assets/imgens/proyecto3.png";
 import PROJECT_IMG_4 from "../assets/imgens/proyecto4.png";
-import PROJECT_IMG_5 from "../assets/imgens/proyecto5.jpg";
-import PROJECT_IMG_6 from "../assets/imgens/proyecto6.jpg";
-import PROJECT_IMG_7 from "../assets/imgens/proyecto7.jpg";
+import PROJECT_IMG_5 from "../assets/imgens/proyecto5.png";
+import PROJECT_IMG_6 from "../assets/imgens/proyecto6.png";
+import PROJECT_IMG_7 from "../assets/imgens/proyecto7.png";
 export const SKILLS_CATEGORY = [
     {
         title: "Desarrollo Frontend",
