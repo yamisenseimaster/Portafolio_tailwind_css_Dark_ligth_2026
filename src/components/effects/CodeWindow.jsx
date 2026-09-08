@@ -21,6 +21,18 @@ const lines = [
 ]
 const source = lines.map(line => line.map(([, text]) => text).join('')).join('\n')
 const total = source.length
+let offset = 0
+const preparedLines = lines.map(line => {
+  const start = offset
+  const tokens = line.map(([kind, text]) => {
+    const token = { kind, text, offset }
+    offset += text.length
+    return token
+  })
+  const end = offset
+  offset += 1
+  return { start, end, tokens }
+})
 
 export default function CodeWindow() {
   const ref = useRef(null)
@@ -62,15 +74,12 @@ export default function CodeWindow() {
         </header>
         <div className="code-body">
           <pre className="sr-only">{source}</pre>
-          <div className="code-lines" aria-hidden="true">{lines.map((line, index) => {
-            const lineStart = lines.slice(0, index).reduce((sum, previous) => sum + previous.reduce((size, [, text]) => size + text.length, 0) + 1, 0)
-            const length = line.reduce((sum, [, text]) => sum + text.length, 0)
-            const active = shown >= lineStart && shown <= lineStart + length
+          <div className="code-lines" aria-hidden="true">{preparedLines.map((line, index) => {
+            const active = shown >= line.start && shown <= line.end
             return <div className={`code-line ${active && !complete ? 'code-line-active' : ''}`} key={index}>
               <span className="code-line-number">{String(index + 1).padStart(2, '0')}</span>
-              <span className="code-line-content">{line.map(([kind, text], tokenIndex) => {
-                const tokenOffset = lineStart + line.slice(0, tokenIndex).reduce((sum, [, previous]) => sum + previous.length, 0)
-                const visibleText = text.slice(0, Math.max(0, shown - tokenOffset))
+              <span className="code-line-content">{line.tokens.map(({ kind, text, offset }, tokenIndex) => {
+                const visibleText = text.slice(0, Math.max(0, shown - offset))
                 return <span className={`syntax-${kind}`} key={tokenIndex}>{visibleText}</span>
               })}{active && !complete && <span className={`code-caret ${paused ? 'is-paused' : ''}`} />}</span>
             </div>

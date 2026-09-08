@@ -75,15 +75,13 @@ const Navbar = () => {
                     onClick={() => scrollToSection(item.sectionId)}
                     className={`relative h-[86px] text-sm font-bold transition-colors ${
                         activeSection === item.sectionId
-                            ? isDarkMode ? "text-[#00ed9a]" : "text-[#b80e4d]"
+                            ? "text-[var(--accent)]"
                             : isDarkMode ? "text-white/62 hover:text-white" : "text-black/62 hover:text-black"
                     }`}
                 >
                     {item.label}
                     {activeSection === item.sectionId && (
-                        <span className={`absolute bottom-[25px] left-0 h-[2px] w-full ${
-                            isDarkMode ? "bg-[#00ed9a]" : "bg-[#b80e4d]"
-                        }`} />
+                        <span className="absolute bottom-[25px] left-0 h-[2px] w-full bg-[var(--accent)]" />
                     )}
                 </motion.button>
             ))}
@@ -96,8 +94,8 @@ const Navbar = () => {
                 title={isDarkMode ? 'Activar modo claro' : 'Activar modo oscuro'}
                 className={`p-2 transition-colors ${
                     isDarkMode 
-                    ? "text-white/62 hover:text-[#00ed9a]" 
-                    : "text-black/62 hover:text-[#b80e4d]"
+                    ? "text-white/62 hover:text-[var(--accent)]" 
+                    : "text-black/62 hover:text-[var(--accent)]"
                 }`}
             >
                 {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
@@ -115,8 +113,8 @@ const Navbar = () => {
                 title={isDarkMode ? 'Activar modo claro' : 'Activar modo oscuro'}
                 className={`p-2 transition-colors ${
                     isDarkMode 
-                    ? "text-white/62 hover:text-[#00ed9a]" 
-                    : "text-black/62 hover:text-[#b80e4d]"
+                    ? "text-white/62 hover:text-[var(--accent)]" 
+                    : "text-black/62 hover:text-[var(--accent)]"
                 }`}
             >
                 {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
@@ -129,8 +127,8 @@ const Navbar = () => {
                 aria-expanded={isMenuOpen}
                 className={`p-2 transition-colors ${
                     isDarkMode                     
-                    ? "text-white/62 hover:text-[#00ed9a]" 
-                    : "text-black/62 hover:text-[#b80e4d]"
+                    ? "text-white/62 hover:text-[var(--accent)]" 
+                    : "text-black/62 hover:text-[var(--accent)]"
                 }`}
             >
                 {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -156,7 +154,7 @@ const Navbar = () => {
                         onClick={() => scrollToSection(item.sectionId)}
                         className={`block w-full py-3 text-left text-sm font-bold transition-colors ${
                             activeSection === item.sectionId
-                                ? isDarkMode ? "text-[#00ed9a]" : "text-[#b80e4d]"
+                                ? "text-[var(--accent)]"
                                 : isDarkMode ? "text-white/62 hover:text-white" : "text-black/62 hover:text-black"
                         }`}
                     >

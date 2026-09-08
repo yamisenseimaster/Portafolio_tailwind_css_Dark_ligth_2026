@@ -1,6 +1,7 @@
 import { ArrowDown, ArrowUpRight, Mail } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import MatrixRain from '../effects/MatrixRain';
+import DeferredEffect from '../effects/DeferredEffect';
 import ScrambleText from '../effects/ScrambleText';
 import CodeWindow from '../effects/CodeWindow';
 import MagneticLink from '../effects/MagneticLink';
@@ -9,20 +10,20 @@ import './HeroSection.css';
 import { motion, useReducedMotion } from 'framer-motion';
 
 export default function HeroSection() {
-  const { isDarkMode } = useTheme();
+  const { isDarkMode, colorPalette } = useTheme();
   const reduced = useReducedMotion();
   const entrance = (delay) => ({
-    initial: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 24, filter: reduced ? 'blur(0px)' : 'blur(6px)' },
-    animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
+    initial: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 24 },
+    animate: { opacity: 1, y: 0 },
     transition: { duration: reduced ? 0 : 0.9, delay: reduced ? 0 : delay, ease: [0.22, 1, 0.36, 1] },
   });
   return (
     <section id="home" className={`cyber-hero ${isDarkMode ? 'cyber-dark' : 'cyber-light'}`}>
-      <MatrixRain isDarkMode={isDarkMode} />
+      <DeferredEffect><MatrixRain isDarkMode={isDarkMode} colorPalette={colorPalette} /></DeferredEffect>
       <div className="cyber-content">
         <div className="cyber-copy">
           <motion.p {...entrance(0)} className="cyber-status"><span /> Disponible para nuevos proyectos</motion.p>
-          <motion.h1 {...entrance(0.12)}><ScrambleText key={String(isDarkMode)} text="Yamil Cazon" /><span className="cyber-cursor" aria-hidden="true">_</span></motion.h1>
+          <motion.h1 {...entrance(0.12)}><ScrambleText key={`${isDarkMode}-${colorPalette}`} text="Yamil Cazon" /><span className="cyber-cursor" aria-hidden="true">_</span></motion.h1>
           <motion.p {...entrance(0.24)} className="cyber-role">Desarrollador Full Stack</motion.p>
           <motion.p {...entrance(0.34)} className="cyber-lead">Construyendo <mark>experiencias digitales</mark> que importan.</motion.p>
           <motion.p {...entrance(0.44)} className="cyber-description">Creo aplicaciones web que combinan creatividad y funcionalidad. Con pasión por el código y el diseño, convierto ideas en experiencias claras, útiles y memorables.</motion.p>

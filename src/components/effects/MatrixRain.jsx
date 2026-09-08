@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
+import { COLOR_PALETTES } from '../../utils/colorPalettes';
 
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/{}[]()=+-_:;';
 
-export default function MatrixRain({ isDarkMode }) {
+export default function MatrixRain({ isDarkMode, colorPalette }) {
   const canvasRef = useRef(null);
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,9 +18,19 @@ export default function MatrixRain({ isDarkMode }) {
     let visible = true;
     let cellSize = 17;
     const startedAt = performance.now();
-    const colors = isDarkMode
-      ? { dim: '#008565', mid: '#00f0a3', hot: '#caffee', veil: 'rgba(7, 16, 14, 0.18)' }
-      : { dim: '#b81452', mid: '#ff2c7a', hot: '#ffe7ef', veil: 'rgba(246, 247, 249, 0.2)' };
+    const selectedPalette = COLOR_PALETTES.find(({ id }) => id === colorPalette) || COLOR_PALETTES[0];
+    const accent = isDarkMode ? selectedPalette.dark : selectedPalette.light;
+    const raw = accent.replace('#', '');
+    const accentRgb = raw.length === 6
+      ? `${parseInt(raw.slice(0, 2), 16)},${parseInt(raw.slice(2, 4), 16)},${parseInt(raw.slice(4, 6), 16)}`
+      : '0,237,154';
+    const colors = {
+      dim: `rgba(${accentRgb},.52)`,
+      mid: accent,
+      hot: isDarkMode ? '#eafff8' : '#ffffff',
+      veil: isDarkMode ? 'rgba(7, 16, 14, 0.18)' : 'rgba(246, 247, 249, 0.2)',
+      sweep: `rgba(${accentRgb},${isDarkMode ? '.16' : '.2'})`,
+    };
     const paint = (advance = false, now = 0) => {
       context.clearRect(0, 0, width, height);
       context.font = '800 13px "Lucida Console", "Cascadia Mono", Consolas, monospace';
@@ -44,7 +55,7 @@ export default function MatrixRain({ isDarkMode }) {
       if (transitionPulse > 0) {
         const gradient = context.createLinearGradient(sweepX - 170, 0, sweepX + 170, 0);
         gradient.addColorStop(0, 'rgba(255,255,255,0)');
-        gradient.addColorStop(0.5, isDarkMode ? 'rgba(0,240,163,.16)' : 'rgba(255,44,122,.2)');
+        gradient.addColorStop(0.5, colors.sweep);
         gradient.addColorStop(1, 'rgba(255,255,255,0)');
         context.fillStyle = gradient;
         context.fillRect(0, 0, width, height);
@@ -54,8 +65,8 @@ export default function MatrixRain({ isDarkMode }) {
     };
     const resize = () => {
       ({ width, height } = canvas.getBoundingClientRect());
-      cellSize = width < 640 ? 16 : 17;
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      cellSize = width < 640 ? 20 : 19;
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -79,10 +90,10 @@ export default function MatrixRain({ isDarkMode }) {
           swapRate: hot ? 0.06 : 0.032,
         };
       });
-      paint();
+      paint(false, performance.now());
     };
     const tick = now => {
-      if (now - previous > 42) { paint(true, now); previous = now; }
+      if (now - previous > (width < 640 ? 66 : 50)) { paint(true, now); previous = now; }
       frame = requestAnimationFrame(tick);
     };
     const sync = () => {
@@ -105,6 +116,6 @@ export default function MatrixRain({ isDarkMode }) {
       preference.removeEventListener('change', sync);
       document.removeEventListener('visibilitychange', sync);
     };
-  }, [isDarkMode]);
+  }, [isDarkMode, colorPalette]);
   return <canvas ref={canvasRef} className="matrix-rain" aria-hidden="true" />;
 }

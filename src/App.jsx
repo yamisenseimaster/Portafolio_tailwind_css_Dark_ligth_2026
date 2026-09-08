@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ThemeProvider } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import HeroSection from './components/sections/HeroSection'
@@ -12,15 +12,22 @@ import BackgroundMusic from './components/BackgroundMusic'
 import ScrollProgress from './components/effects/ScrollProgress'
 import ScrollShowcase from './components/effects/ScrollShowcase'
 import GridLightRain from './components/effects/GridLightRain'
+import DeferredEffect from './components/effects/DeferredEffect'
+import ColorPalettePanel from './components/ColorPalettePanel'
 
 const App = () => {
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => document.getElementById('startup-loader')?.remove())
+    return () => cancelAnimationFrame(frame)
+  }, [])
   return (
     <ThemeProvider>
       <MotionConfig reducedMotion="user">
       <div >
-        <GridLightRain />
+        <DeferredEffect><GridLightRain /></DeferredEffect>
         <ScrollProgress />
         <BackgroundMusic />
+        <ColorPalettePanel />
         <Navbar />
         <HeroSection />
         <ScrollShowcase />

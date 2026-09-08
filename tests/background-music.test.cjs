@@ -63,8 +63,11 @@ test('music fades, repeats, remembers mute and cleans up on unmount', async () =
     }
   }
   assert.equal(audio.paused, true, 'no sound before interaction')
+  assert.equal(audio.preload, 'none', 'audio must not preload on startup')
+  assert.equal(audio.src, undefined, 'no media source until interaction')
   events.get('pointerdown')({ type: 'pointerdown', target: { closest: () => null } })
   await new Promise(setImmediate)
+  assert.equal(audio.src, 'music.mp3')
   advance(0)
   assert.equal(audio.volume, 0)
   advance(10)

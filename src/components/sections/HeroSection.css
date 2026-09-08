@@ -2,11 +2,11 @@
   --cyber-bg: #101c1f;
   --cyber-ink: #eef5f2;
   --cyber-muted: #a7b8b3;
-  --cyber-accent: #00ed9a;
+  --cyber-accent: var(--accent);
   --cyber-line: #38504a;
   --cyber-highlight: #ea2478;
-  --cyber-grid: rgba(79, 122, 103, .16);
-  --cyber-grid-soft: rgba(79, 122, 103, .07);
+  --cyber-grid: rgba(var(--accent-rgb), .13);
+  --cyber-grid-soft: rgba(var(--accent-rgb), .055);
   position: relative;
   isolation: isolate;
   min-height: min(850px, 94svh);
@@ -29,11 +29,11 @@
   --cyber-bg: #f2f3f5;
   --cyber-ink: #20282b;
   --cyber-muted: #515c60;
-  --cyber-accent: #b80e4d;
+  --cyber-accent: var(--accent);
   --cyber-line: #bfc7ca;
   --cyber-highlight: #00dc9d;
-  --cyber-grid: rgba(184, 14, 77, .12);
-  --cyber-grid-soft: rgba(184, 14, 77, .05);
+  --cyber-grid: rgba(var(--accent-rgb), .12);
+  --cyber-grid-soft: rgba(var(--accent-rgb), .05);
 }
 .matrix-rain { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -3; opacity: .78; pointer-events: none; transition: opacity .65s; }
 .cyber-hero::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(90deg, color-mix(in srgb, var(--cyber-bg) 91%, transparent) 0%, color-mix(in srgb, var(--cyber-bg) 54%, transparent) 48%, color-mix(in srgb, var(--cyber-bg) 28%, transparent) 100%), linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--cyber-bg) 18%, transparent) 38%, color-mix(in srgb, var(--cyber-bg) 72%, transparent) 77%, var(--cyber-bg) 100%); }
@@ -63,8 +63,7 @@
 .cyber-button:hover svg { transform: translate(2px, -2px); }
 .hero-contents a svg { transition: transform .4s; }
 .hero-contents a:hover svg { transform: translate(3px, -3px); }
-.cyber-primary { background: var(--cyber-accent); border-color: var(--cyber-accent); color: #08241b; }
-.cyber-light .cyber-primary { color: white; }
+.cyber-primary { background: var(--cyber-accent); border-color: var(--cyber-accent); color: var(--accent-contrast); }
 .cyber-hero a:focus-visible { outline: 2px solid var(--cyber-accent); outline-offset: 5px; }
 .scramble-text { display: inline-grid; position: relative; white-space: pre; }
 .scramble-reserve { grid-area: 1 / 1; color: transparent; }

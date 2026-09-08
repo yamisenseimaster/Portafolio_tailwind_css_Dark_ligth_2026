@@ -17,13 +17,12 @@ import {
 } from "lucide-react";
 import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 
-import PROJECT_IMG_1 from "../assets/imgens/proyecto1.png";
-import PROJECT_IMG_2 from "../assets/imgens/proyecto2.png";
-import PROJECT_IMG_3 from "../assets/imgens/proyecto3.png";
-import PROJECT_IMG_4 from "../assets/imgens/proyecto4.png";
-import PROJECT_IMG_5 from "../assets/imgens/proyecto5.png";
-import PROJECT_IMG_6 from "../assets/imgens/proyecto6.png";
-import PROJECT_IMG_7 from "../assets/imgens/proyecto7.png";
+import PROJECT_IMG_1 from "../assets/imgens/proyecto1.webp";
+import PROJECT_IMG_2 from "../assets/imgens/proyecto2.webp";
+import PROJECT_IMG_3 from "../assets/imgens/proyecto3.webp";
+import PROJECT_IMG_4 from "../assets/imgens/proyecto4.webp";
+import PROJECT_IMG_5 from "../assets/imgens/proyecto5.webp";
+import PROJECT_IMG_6 from "../assets/imgens/proyecto6.webp";
 export const SKILLS_CATEGORY = [
     {
         title: "Desarrollo Frontend",

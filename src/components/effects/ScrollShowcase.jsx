@@ -38,7 +38,7 @@ export default function ScrollShowcase() {
       <div className="showcase-viewport" ref={viewport}>
         <motion.div ref={track} className="showcase-track" style={reduced ? undefined : { x }}>
           {PROJECTS.map((project, index) => <motion.a key={project.id} href={`#project-${project.id}`} className="showcase-project" onFocus={() => revealProject(index)} whileHover={reduced ? undefined : { y: -8 }} transition={{ type: 'spring', stiffness: 220, damping: 24 }}>
-            <div className="showcase-image"><img src={project.image} alt={`Vista de ${project.title}`} loading="lazy" /><span className="showcase-scan" aria-hidden="true" /></div>
+            <div className="showcase-image"><img src={project.image} alt={`Vista de ${project.title}`} loading="lazy" decoding="async" /><span className="showcase-scan" aria-hidden="true" /></div>
             <div className="showcase-caption"><span className="record-index">{String(index + 1).padStart(2, '0')}</span><h3>{project.title}</h3><ArrowUpRight size={20} /></div>
             <p>{project.tags.join(' / ')}</p>
           </motion.a>)}

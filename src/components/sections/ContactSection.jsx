@@ -152,7 +152,7 @@ const ContactSection = () => {
                         required
                     />
                     {submitError && (
-                        <p className={`text-sm ${isDarkMode ? "text-[#00ed9a]" : "text-[#b80e4d]"}`}>
+                    <p className="text-sm text-[var(--accent)]">
                             {submitError}
                         </p>
                     )}

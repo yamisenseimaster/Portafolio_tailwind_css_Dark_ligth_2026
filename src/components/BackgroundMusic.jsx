@@ -11,8 +11,8 @@ export default function BackgroundMusic() {
   const [failed, setFailed] = useState(false)
 
   useEffect(() => {
-    const audio = new Audio(track)
-    audio.preload = 'metadata'
+    const audio = new Audio()
+    audio.preload = 'none'
     audio.volume = 0
     audioRef.current = audio
     let disposed = false
@@ -40,6 +40,7 @@ export default function BackgroundMusic() {
     }
     const start = async () => {
       try {
+        if (!audio.src) audio.src = track
         await audio.play()
         if (disposed) return
         setFailed(false)

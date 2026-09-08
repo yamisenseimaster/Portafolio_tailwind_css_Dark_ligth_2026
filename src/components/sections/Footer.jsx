@@ -53,22 +53,14 @@ const Footer = () => {
     const AnimatedGradientLine = () => (
         <div className='absolute top-0 left-0 w-full overflow-hidden'>
             <motion.div
-                className={`h-px bg-gradient-to-r ${
-                    isDarkMode
-                        ? 'from-transparent via-[#00ed9a] to-transparent'
-                        : 'from-transparent via-[#b80e4d] to-transparent'
-                }`}
+                className="footer-gradient-line h-px"
                 initial={{ width: "0%", opacity: 0 }}
                 animate={isInView ? { width: "100%", opacity: 1 } :{}}
                 transition={{duration: 1.5, ease:"easeInOut"}}
                 
             />
             <motion.div
-                className={`absolute top-0 h-px bg-gradient-to-r ${
-                    isDarkMode
-                        ? 'from-[#00ed9a] via-[#ea2478] to-[#00ed9a]'
-                        : 'from-[#b80e4d] via-[#00dc9d] to-[#b80e4d]'
-                } blur-sm`}
+                className="footer-travel-line absolute top-0 h-px blur-sm"
                 
                 animate={{
                     x: ["-50%", "calc(100vw + 50%)"],
@@ -157,7 +149,7 @@ const Footer = () => {
                             variants={itemVariants}
                             className="flex items-center justify-center space-x-4"
                         >
-                            <div className={`h-px w-16 ${isDarkMode ? 'bg-[#00ed9a]/25' : 'bg-[#b80e4d]/20'}`}/>
+                            <div className="h-px w-16 bg-[var(--accent)] opacity-25"/>
                             <motion.div
                                 animate={{scale: [1, 1.2, 1]}}
                                 transition={{duration: 2, repeat: Infinity}}
@@ -165,7 +157,7 @@ const Footer = () => {
                             >
                                 <Heart size={16} fill="currentColor"/>
                             </motion.div>
-                            <div className={`h-px w-16 ${isDarkMode ? 'bg-[#00ed9a]/25' : 'bg-[#b80e4d]/20' }`}/>
+                            <div className="h-px w-16 bg-[var(--accent)] opacity-25"/>
                         </motion.div>
                         {/*Copyright*/}
                         <motion.div variants={itemVariants} className="space-y-2">
@@ -182,11 +174,11 @@ const Footer = () => {
                         <motion.div variants={itemVariants}>
                             <motion.button
                                 onClick={scrollToTop}
-                                className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300  ${
+                                className={`footer-top-button inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300  ${
                                     isDarkMode 
-                                    ? 'bg-[#0d1b1d]/65 hover:bg-[#0d1b1d]/85 text-gray-400 hover:text-[#00ed9a]' 
-                                    : 'bg-white/55 hover:bg-white/80 text-gray-600 hover:text-[#b80e4d]'
-                                } backdrop-blur-sm border ${isDarkMode ? 'border-[#00ed9a]/20' : 'border-[#b80e4d]/18'}`}
+                                    ? 'bg-[#0d1b1d]/65 hover:bg-[#0d1b1d]/85 text-gray-400' 
+                                    : 'bg-white/55 hover:bg-white/80 text-gray-600'
+                                } backdrop-blur-sm border`}
                                 whileHover={{ scale: 1.05, y:-2, boxShadow: isDarkMode ? '0px 10px 25px rgba(59, 30, 246, 0.15)' : '0px 10px 25px rgba(59, 130, 246, 0.1)' }}
                                 whileTap={{ scale: 0.95 }}                                 
                             >

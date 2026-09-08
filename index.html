@@ -5,8 +5,21 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>yamilcazon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Urbanist:wght@300;400;500;600;700;800&display=swap" />
+    <style>
+      #startup-loader { position: fixed; inset: 0; z-index: 9999; display: grid; place-content: center; gap: 16px; justify-items: center; background: #f2f3f5; color: #b80e4d; font: 14px monospace; pointer-events: none; animation: dismiss-loader 0s 1.2s forwards; }
+      #startup-loader i { width: 28px; height: 28px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: startup-spin .8s linear infinite; }
+      html.dark #startup-loader { background: #101c1f; color: #00ed9a; }
+      @keyframes startup-spin { to { transform: rotate(360deg); } }
+      @keyframes dismiss-loader { to { visibility: hidden; } }
+      @media (prefers-reduced-motion: reduce) { #startup-loader i { animation: none; } }
+    </style>
   </head>
   <body>
+    <script>try { document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark'); document.documentElement.dataset.palette = localStorage.getItem('color-palette') || 'matrix' } catch {}</script>
+    <div id="startup-loader" role="status"><i aria-hidden="true"></i><span>Cargando...</span></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
